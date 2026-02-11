@@ -1,0 +1,27 @@
+CLIENTE:
+Select service items with individual prices to compose their service/clean
+confirm/cancel cleans
+check details of clean - hired services, employee designated, time/date
+recurring cleans 
+possibility to swap services of the same length of time, tasks that take the same time 
+access terms and conditions and rules of "contract" 
+login/logout (account created by the business account)
+
+
+BUSINESS:
+create accounts for clients and employees
+create the list of available services, how much it ccosts and how long it takes (time not displayed to customers)
+approve requests to swap tasks
+approve requests to book/cancel cleans
+history of jobs separated by client, by cleaner, etc
+assign cleans to employees - add comments if necessary
+rearrange schedule to accommodate changes to cleans 
+
+
+EMPLOYEE:
+
+see scheduled jobs 
+send message to client to notify if you're late
+checklist of hired tasks to "tick off" whats done 
+select dates to request days off, sick days, etc 
+gps tracking to start/finish jobs 
