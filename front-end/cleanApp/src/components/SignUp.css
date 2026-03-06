@@ -1,0 +1,83 @@
+/* Page layout */
+.signup-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f6f8;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Signup container */
+.signup-box {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  width: 350px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* Title */
+.signup-box h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* Form layout */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Label */
+.signup-form label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+/* Inputs */
+.signup-form input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  transition: border 0.2s ease;
+}
+
+/* Input focus */
+.signup-form input:focus {
+  outline: none;
+  border-color: #4a90e2;
+}
+
+/* Button wrapper */
+.button {
+  margin-top: 10px;
+}
+
+/* Button */
+.signup-page-button {
+  width: 100%;
+  padding: 12px;
+  background: #4a90e2;
+  color: white;
+  font-size: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+/* Hover */
+.signup-page-button:hover {
+  background: #357abd;
+}
+
+/* Click effect */
+.signup-page-button:active {
+  transform: scale(0.98);
+}

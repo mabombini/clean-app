@@ -1,13 +1,11 @@
 import './LoginPage.css';
 import React from 'react';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
    
-export default function LoginPage()
+export default function LoginPage({email, setEmail, password, setPassword, setUser, setRole})
 {
-const [email, setEmail] = useState('');
-const [password, setPassword] = useState('');
+
 const navigate = useNavigate();
 
 const handleSubmit = async (e) => {
@@ -28,7 +26,8 @@ const handleSubmit = async (e) => {
         
         const response = await data.json();
         localStorage.setItem('token_cleanapp', response.token); 
-        localStorage.setItem('role_cleanapp', response.user.role);
+        console.log("LOGIN RESPONSE:", response.userRole);
+        setRole(response.userRole);
 
 
         navigate('/about')
@@ -41,7 +40,7 @@ const handleSubmit = async (e) => {
 
     return (
         <>
-            <form class="login-box" onSubmit={handleSubmit}>
+            <form className="login-box" onSubmit={handleSubmit}>
             <h2>Login</h2>
 
             <label for="email">Email</label>

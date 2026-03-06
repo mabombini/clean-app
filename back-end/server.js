@@ -18,6 +18,8 @@ const startServer = async () => {
   await conn();
 }
 
+PORT = process.env.PORT || 3000;
+
 app.use('/users', userRoutes);
 app.use('/bookings', bookingRoutes);
 app.use('/auth', authRoutes);

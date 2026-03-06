@@ -9,11 +9,11 @@ dotenv.config();
 
 exports.createNewUser = async (req, res) =>
 {
-    const { name, email, address, role } = req.body;
+    const { name, email, address, password, role } = req.body;
     
     try 
     {        
-        const response = await User.create({ name: name, email:email, address:address, role: role});
+        const response = await User.create({ name: name, email:email, address:address, password:password, role: role});
         return res.status(201).json(response);        
     }
     catch(error) 
