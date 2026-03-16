@@ -11,25 +11,24 @@ import ProtectedRoute from "./components/ProtectedRoute"
 import NotAuthorized from "./components/NotAuthorized"
 import SignUp from "./components/SignUp"
 import UserAdmin from "./components/UserAdmin";
+import SignUpClient from "./components/SignUpClient";
+import { AuthContext, AuthProvider } from "./components/AuthContext";
+import { useContext } from "react";
 
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [user, setUser] = useState(null);
-  const [role, setRole] = useState(null);
 
   return (
     <>
     
-      
-    <Router>
-
-        
+  <AuthProvider >
+    <Router>  
         <div className = "site">
           <Header onMenuClick={() => setMenuOpen(!menuOpen)} />
-          <SideMenu open={menuOpen} user={user} setUser={setUser} setMenuOpen={setMenuOpen} role={role} setRole={setRole}/>
+          <SideMenu open={menuOpen} setMenuOpen={setMenuOpen}/>
         <main className = "site-main">
           <Routes>
               <Route
@@ -39,22 +38,20 @@ export default function App() {
               <Route
               path="/about"
                 element={
-                <ProtectedRoute allowedRoles={['admin', 'client']}
-                role={role}> 
-                <AboutContent menuOpen={menuOpen} setMenuOpen={setMenuOpen} setUser={setUser} user={user}/>
+                <ProtectedRoute allowedRoles={['admin', 'client']}> 
+                <AboutContent menuOpen={menuOpen} setMenuOpen={setMenuOpen}/>
                 </ProtectedRoute>}
               />
               <Route
               path="/user-admin"
                 element={
-                <ProtectedRoute allowedRoles={['admin']}
-                role={role}> 
-                <UserAdmin menuOpen={menuOpen} setMenuOpen={setMenuOpen} setUser={setUser} user={user}/>
+                <ProtectedRoute allowedRoles={['admin']}> 
+                <UserAdmin menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
                 </ProtectedRoute>}
               />
               <Route
           path="/login"
-          element={<LoginPage email={email} setEmail={setEmail} password={password} setPassword={setPassword} user={user} setUser={setUser} setRole={setRole}/>} />
+          element={<LoginPage email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>} />
           <Route 
           path="/dashboard"
           element={<Dashboard />} />
@@ -64,10 +61,19 @@ export default function App() {
           <Route
           path="/sign-up"
           element={<SignUp />} />
+          <Route
+          path="/sign-up-client"
+          element={<SignUpClient />} />
+          <Route
+          path="/user-admin"
+          element={<ProtectedRoute allowedRoles={['admin']}> 
+          <UserAdmin />
+          </ProtectedRoute>} />
           </Routes>
         </main>
         </div>
     </Router>
+</AuthProvider>
     </>
   );
 }

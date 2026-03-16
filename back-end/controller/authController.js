@@ -6,6 +6,7 @@ const conn = require("../db.js")
 const app = express();
 const jwt = require("jsonwebtoken");
 const users = require("../models/users");
+const bcrypt = require('bcrypt');
 const SECRET_KEY = process.env.SECRET_KEY;
 
 dotenv.config();
@@ -16,14 +17,22 @@ exports.login = async (req, res) =>
 
     try
     {
+ 
         const user = await User.findOne( { email })
 
-        if (!user || user.password !== password)
+        if (!user || !(await bcrypt.compare(password, user.password)))
         {
             return res.status(401).json({ message: "Invalid email or password" });
         }
-        const token = jwt.sign({ name: user.name, email: user.email, role: user.role }, SECRET_KEY, { expiresIn: "1h" });
-        return res.status(200).json({ token, userRole: user.role });
+        const token = jwt.sign({ name: user.name, email: user.email, role: user.role, userid: user._id }, SECRET_KEY, { expiresIn: "1h" });
+        return res.status(200).json({ 
+            token, 
+            user: { 
+                name: user.name, 
+                email: user.email, 
+                role: user.role 
+            } 
+        });
     }
     catch (error)
     {
@@ -41,7 +50,7 @@ exports.authentication = async (req, res) => {
 
     
      try {
-        const decoded = jwt.verify(token, SECRET_KEY);
+        const decoded = await jwt.verify(token, SECRET_KEY);
 
         return res.status(200).json({
             message: "Authenticated",

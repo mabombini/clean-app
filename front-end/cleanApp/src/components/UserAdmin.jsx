@@ -1,9 +1,28 @@
 import React, { useState } from "react"
+import { useContext } from "react";
+import { AuthContext } from "./AuthContext";
 
 export default function UserAdmin()
 {
-    const [clientEmail, setClientEmail] = useState("")
+    const { userid } = useContext(AuthContext);
 
+    const [formData, setFormData] = useState({
+        name: "",
+        email: ""
+    })
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
+
+
+    const submitClient = async (e) => {
+        e.preventDefault();
+        console.log("form data: ",formData);
+
+        const clientLink = `http://localhost:3000/users/sign-up-client?businessid=${userid}&email=${formData.email}`
+        
+    }
     return(
         <>
             <form onSubmit={submitClient}>
@@ -13,9 +32,20 @@ export default function UserAdmin()
                     id="email"
                     type="text"
                     name="email"
-                    value={clientEmail}
+                    value={formData.email}
                     onChange={handleChange}
                     />
+                    <label htmlFor="client-name">Client name: </label>
+                    <input
+                    id="name"
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    />
+                    <button type="submit" className="signup-page-button">
+                Send Invite
+              </button>
                 </div>
             </form>
         </>

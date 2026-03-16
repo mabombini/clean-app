@@ -1,27 +1,27 @@
-export const checkAuth = async () => 
-{
-            const token = localStorage.getItem('token_cleanapp');
-            if (!token) 
-                {
-                    navigate('/login');
-                    return;
-                }
-            try
-            {
-                const response = await fetch('http://localhost:3000/auth/authenticate', {
-                    headers:{ Authorization: `Bearer ${token}` }
-            })
+export const checkAuth = async () => {
+    const token = localStorage.getItem('token_cleanapp');
 
-            const data = await response.json();
-            
-            if (response.status === 401 || response.status === 403) {
-                navigate('/login');
-                return;
+    if (!token) {
+        return { authenticated: false };
+    }
+
+    try {
+        const response = await fetch('http://localhost:3000/auth/authenticate', {
+            headers: {
+                Authorization: `Bearer ${token}`
             }
-            return data;
-            } 
-            catch (error)
-            {
-                console.error("Error during authentication check:", error);
-            } 
-}
+        });
+
+        const data = await response.json();
+
+        if (response.status === 401 || response.status === 403) {
+            return { authenticated: false };
+        }
+
+        return { authenticated: true, user: data.user };
+
+    } catch (error) {
+        console.error("Error during authentication check:", error);
+        return { authenticated: false };
+    }
+};

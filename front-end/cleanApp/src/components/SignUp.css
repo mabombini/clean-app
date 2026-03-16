@@ -48,6 +48,13 @@
   transition: border 0.2s ease;
 }
 
+/* Error messages */
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
 /* Input focus */
 .signup-form input:focus {
   outline: none;

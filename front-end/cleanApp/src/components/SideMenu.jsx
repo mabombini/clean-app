@@ -1,14 +1,18 @@
 import '../styles.css'
 import { Link } from "react-router-dom"
+import { useContext } from 'react';
+import { AuthContext } from './AuthContext';
 
-export default function SideMenu({ open, user, role }) {
+export default function SideMenu({ open }) {
   
+  const { role, user } = useContext(AuthContext)
 
   return (
     <nav className={`side-menu ${open ? "open" : ""}`}>
       <ul>
         {!user && (
           <>
+          
             <li><Link to="/">Home</Link></li>
             <li><Link to="/about">About</Link></li>
             <li><Link to="/login">Login</Link></li>
@@ -24,7 +28,7 @@ export default function SideMenu({ open, user, role }) {
           </>
         )}
 
-        {user && user.role === "admin" && (
+        {user && role === "admin" && (
           <>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/admin">Admin Panel</Link></li>
